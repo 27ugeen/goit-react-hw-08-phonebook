@@ -1,0 +1,17 @@
+.navList a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.navList a:not(:last-child) {
+  margin-right: 30px;
+}
+
+.navLink {
+  color: #212121;
+}
+
+.navLinkActive {
+  color: #d87093;
+}
