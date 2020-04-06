@@ -1,7 +1,7 @@
 import axios from 'axios';
 import contactsActions from './contactsActions';
 
-// const BASE_URL = 'https://goit-phonebook-api.herokuapp.com/v1';
+// const BASE_URL = 'https://goit-phonebook-api.herokuapp.com';
 // const AUTH_TOKEN = '977f4503-57e7-4399-a1b5-3ea624a7599a';
 
 // axios.defaults.baseURL = BASE_URL;

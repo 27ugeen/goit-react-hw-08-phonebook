@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import ContactItem from './ContactItem';
-import contactsOperations from '../../redux/contacts/contactsOperation';
-import contactsSelectors from '../../redux/contacts/contactsSelectors';
+import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import withTheme from '../hoc/withTheme';
 
 const mapStateToProps = (state, ownProps) => {

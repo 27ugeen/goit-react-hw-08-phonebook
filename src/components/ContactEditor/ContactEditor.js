@@ -3,8 +3,7 @@ import shortid from 'shortid';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import withTheme from '../hoc/withTheme';
-import contactsOperations from '../../redux/contacts/contactsOperation';
-import contactsSelectors from '../../redux/contacts/contactsSelectors';
+import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import Notification from '../../components/Notification';
 import PropTypes from 'prop-types';
 import styles from './ContactEditor.module.css';
@@ -77,7 +76,6 @@ class ContactEditor extends Component {
   render() {
     const { name, number, alertMessage } = this.state;
     const { theme } = this.props;
-    
 
     return (
       <>

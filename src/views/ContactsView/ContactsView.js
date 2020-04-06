@@ -6,15 +6,29 @@ import ContactsList from '../../components/ContactsList/ContactsListContainer';
 import ContactFilter from '../../components/ContactFilter';
 import Section from '../../components/Section';
 import Notification from '../../components/Notification';
-import contactsSelectors from '../../redux/contacts/contactsSelectors';
-import contactsOperations from '../../redux/contacts/contactsOperation';
+import { contactsSelectors, contactsOperations } from '../../redux/contacts';
+// import { authSelectors } from '../../redux/auth';
+
 import withTheme from '../../components/hoc/withTheme';
 
-
 class ContactsView extends Component {
-  // componentDidMount() {
-  //   this.props.onFetchContacts();
+  componentDidMount() {
+    // if (!this.props.isLoggedIn) {
+    //   this.props.history.replace('/login');
+
+    //   return;
+    // }
+    this.props.onFetchContacts();
+  }
+
+  // componentDidUpdate() {
+  //   if (!this.props.isLoggedIn) {
+  //     this.props.history.replace('/login');
+
+  //     return;
+  //   }
   // }
+
   render() {
     const { items, error, theme } = this.props;
     return (
@@ -52,6 +66,7 @@ class ContactsView extends Component {
 const mapStateToProps = state => ({
   items: contactsSelectors.getContactsItems(state),
   error: contactsSelectors.getError(state),
+  // isLoggedIn: authSelectors.isLoggedIn(state),
 });
 
 const mapDispatchToProps = {
