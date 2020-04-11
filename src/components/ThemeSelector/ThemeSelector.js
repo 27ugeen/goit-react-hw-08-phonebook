@@ -3,9 +3,13 @@ import withTheme from '../hoc/withTheme';
 import PropTypes from 'prop-types';
 
 const ThemeSelector = ({ theme }) => {
-  const { config, type, onToggleTheme } = theme;
+  const {
+    config: { bodyBg },
+    type,
+    onToggleTheme,
+  } = theme;
   return (
-    <div className={`themeSelector ${config.bodyBg}`}>
+    <div className={`themeSelector ${bodyBg}`}>
       <span className="label">Toggle theme ({type})</span>
       <label className="switch">
         <input

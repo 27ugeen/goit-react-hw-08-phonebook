@@ -1,14 +1,12 @@
 import React, { Component, Suspense } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './Layout';
 import Spinner from './Spinner';
-import ThemeSelector from './ThemeSelector';
-import ThemeContext from '../context/ThemeContext';
 import PrivateRoute from '../utils/PrivateRoute';
 import PublicRoute from '../utils/PublicRoute';
+import NotFound from '../views/NotFound';
 import routes from '../routes';
-import { authOperations } from '../redux/auth';
+import withAuth from './hoc/withAuth';
 
 class App extends Component {
   componentDidMount() {
@@ -19,28 +17,24 @@ class App extends Component {
     return (
       <>
         <BrowserRouter>
-          <ThemeContext>
-            <ThemeSelector toggleTheme={this.props.toggleTheme} />
-            <Layout>
-              <Suspense fallback={<Spinner />}>
-                <Switch>
-                  {routes.map(route =>
-                    route.private ? (
-                      <PrivateRoute key={route.label} {...route} />
-                    ) : (
-                      <PublicRoute key={route.label} {...route} />
-                    ),
-                  )}
-                </Switch>
-              </Suspense>
-            </Layout>
-          </ThemeContext>
+          <Layout>
+            <Suspense fallback={<Spinner />}>
+              <Switch>
+                {routes.map(route =>
+                  route.privateRoute ? (
+                    <PrivateRoute key={route.label} {...route} />
+                  ) : (
+                    <PublicRoute key={route.label} {...route} />
+                  ),
+                )}
+                <Route component={NotFound} />
+              </Switch>
+            </Suspense>
+          </Layout>
         </BrowserRouter>
       </>
     );
   }
 }
 
-export default connect(null, {
-  onGetCurrentUser: authOperations.getCurrentUser,
-})(App);
+export default withAuth(App);

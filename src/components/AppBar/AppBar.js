@@ -1,22 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Navigation from '../Navigation';
 import UserMenu from '../UserMenu';
-import { authSelectors } from '../../redux/auth';
+import AuthNav from '../AuthNav';
+import ThemeSelector from '../ThemeSelector';
+import withAuth from '../hoc/withAuth';
+import PropTypes from 'prop-types';
 import styles from './AppBar.module.css';
 
-const { header } = styles;
+const { header, screenLeft } = styles;
 
-const AppBar = ({ isLoggedIn }) => (
+const AppBar = ({ isLoggedIn, toggleTheme }) => (
   <header className={header}>
-    <Navigation />
-    {/* <UserMenu /> */}
-    {isLoggedIn && <UserMenu />}
+    <div className={screenLeft}>
+      <ThemeSelector toggleTheme={toggleTheme} />
+      <Navigation />
+    </div>
+    {isLoggedIn ? <UserMenu /> : <AuthNav />}
   </header>
 );
 
-const mapStateToProps = state => ({
-  isLoggedIn: authSelectors.isLoggedIn(state),
-});
+AppBar.propTypes = {
+  isLoggedIn: PropTypes.string,
+  toggleTheme: PropTypes.func,
+};
 
-export default connect(mapStateToProps)(AppBar);
+export default withAuth(AppBar);

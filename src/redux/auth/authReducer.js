@@ -3,13 +3,14 @@ import { createReducer } from '@reduxjs/toolkit';
 import authActions from './authActions';
 
 const addUser = (_, { payload }) => payload.user;
-const initialUserState = { name: null, email: null };
+const initialUserState = { name: '', email: '' };
 
 const user = createReducer(initialUserState, {
   [authActions.registerSuccess]: addUser,
   [authActions.loginSuccess]: addUser,
   [authActions.getCurrentUserSuccess]: (_, { payload }) => payload,
   [authActions.logoutSuccess]: () => initialUserState,
+  [authActions.deleteUserAccountSuccess]: () => initialUserState,
 });
 
 const addToken = (_, { payload }) => payload.token;
@@ -18,6 +19,7 @@ const token = createReducer(null, {
   [authActions.registerSuccess]: addToken,
   [authActions.loginSuccess]: addToken,
   [authActions.logoutSuccess]: () => null,
+  [authActions.deleteUserAccountSuccess]: () => null,
 });
 
 const loading = createReducer(false, {
@@ -41,6 +43,7 @@ const error = createReducer(null, {
   [authActions.loginError]: addError,
   [authActions.logoutError]: addError,
   [authActions.getCurrentUserError]: addError,
+  [authActions.deleteUserAccountError]: addError,
 });
 
 export default combineReducers({

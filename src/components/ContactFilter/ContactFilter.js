@@ -26,8 +26,6 @@ const mapStateToProps = state => ({
   value: contactsSelectors.getFilter(state),
 });
 
-const mapDispatchToProps = {
+export default connect(mapStateToProps, {
   onChangeFilter: contatcsActions.changeFilter,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactFilter);
+})(ContactFilter);

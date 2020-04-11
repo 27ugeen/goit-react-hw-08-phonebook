@@ -16,6 +16,10 @@ const getCurrentUserRequest = createAction('auth/getCurrentUserRequest');
 const getCurrentUserSuccess = createAction('auth/getCurrentUserSuccess');
 const getCurrentUserError = createAction('auth/getCurrentUserError');
 
+const deleteUserAccountRequest = createAction('auth/deleteUserAccountRequest');
+const deleteUserAccountSuccess = createAction('auth/deleteUserAccountSuccess');
+const deleteUserAccountError = createAction('auth/deleteUserAccountError');
+
 export default {
   registerRequest,
   registerSuccess,
@@ -29,4 +33,7 @@ export default {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
+  deleteUserAccountRequest,
+  deleteUserAccountSuccess,
+  deleteUserAccountError, 
 };

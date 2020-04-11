@@ -1,58 +1,51 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import routes from '../../routes';
+import withAuth from '../hoc/withAuth';
+import withTheme from '../hoc/withTheme';
+import PropTypes from 'prop-types';
 import styles from './Navigation.module.css';
 
-// const { home, register, login, contacts } = routes;
+const { navList } = styles;
 
-const { navList, navLink, navLinkActive } = styles;
-
-const Navigation = () => (
-  <ul className={navList}>
-    {routes.map(route => (
-      <NavLink
-        key={route.label}
-        to={route.path}
-        exact={route.exact}
-        className={navLink}
-        activeClassName={navLinkActive}
-      >
-        {route.label}
-      </NavLink>
-    ))}
-    {/* <NavLink
-        exact
-        to={home}
-        className={navLink}
-        activeClassName={navLinkActive}
-      >
-        Home
-      </NavLink>
-      <NavLink
-        exact
-        to={register}
-        className={navLink}
-        activeClassName={navLinkActive}
-      >
-        Register
-      </NavLink>
-      <NavLink
-        exact
-        to={login}
-        className={navLink}
-        activeClassName={navLinkActive}
-      >
-        Login
-      </NavLink>
-      <NavLink
-        exact
-        to={contacts}
-        className={navLink}
-        activeClassName={navLinkActive}
-      >
-        Contacts
-      </NavLink> */}
-  </ul>
+const Navigation = ({ isLoggedIn, theme }) => (
+  <div className={navList}>
+    {routes.map(
+      ({ privateRoute, restricted, label, path, exact }) =>
+        (!isLoggedIn && !privateRoute && !restricted && (
+          <NavLink
+            key={label}
+            to={path}
+            exact={exact}
+            className={theme.config.navLink}
+            activeClassName={theme.config.navLinkActive}
+          >
+            {label}
+          </NavLink>
+        )) ||
+        (isLoggedIn && !restricted && (
+          <NavLink
+            key={label}
+            to={path}
+            exact={exact}
+            className={theme.config.navLink}
+            activeClassName={theme.config.navLinkActive}
+          >
+            {label}
+          </NavLink>
+        )),
+    )}
+  </div>
 );
 
-export default Navigation;
+Navigation.propTypes = {
+  isLoggedIn: PropTypes.string,
+  theme: PropTypes.shape({
+    config: PropTypes.shape({
+      navLink: PropTypes.string.isRequired,
+      navLinkActive: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default withAuth(withTheme(Navigation));

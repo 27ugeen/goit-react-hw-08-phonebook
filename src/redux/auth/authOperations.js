@@ -67,4 +67,22 @@ const getCurrentUser = () => (dispatch, getState) => {
     .catch(error => authActions.getCurrentUserError(error));
 };
 
-export default { register, logIn, logOut, getCurrentUser };
+const deleteAccount = () => (dispatch, getState) => {
+  const {
+    auth: { token: persistedToken },
+  } = getState();
+
+  if (!persistedToken) {
+    return;
+  }
+
+  token.set(persistedToken);
+  dispatch(authActions.deleteUserAccountRequest());
+
+  axios
+    .delete('/users/current')
+    .then(({ data }) => dispatch(authActions.deleteUserAccountSuccess(data)))
+    .catch(error => authActions.deleteUserAccountError(error));
+};
+
+export default { register, logIn, logOut, getCurrentUser, deleteAccount };

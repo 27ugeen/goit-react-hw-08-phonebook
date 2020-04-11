@@ -2,23 +2,16 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import withTheme from '../hoc/withTheme';
 import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import Notification from '../../components/Notification';
+import { FormField, FormButton } from '../Form';
 import PropTypes from 'prop-types';
 import styles from './ContactEditor.module.css';
-
-const { form, inputLabel, input, formButton } = styles;
 
 class ContactEditor extends Component {
   static propTypes = {
     onAddContact: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
-    theme: PropTypes.shape({
-      config: PropTypes.shape({
-        btnBgColor: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
   };
 
   state = {
@@ -75,7 +68,6 @@ class ContactEditor extends Component {
 
   render() {
     const { name, number, alertMessage } = this.state;
-    const { theme } = this.props;
 
     return (
       <>
@@ -87,39 +79,26 @@ class ContactEditor extends Component {
         >
           <Notification message={alertMessage} />
         </CSSTransition>
-        <form className={form} onSubmit={this.handleSubmit}>
-          <label className={inputLabel} htmlFor={this.idName}>
-            Name
-          </label>
-          <input
-            className={input}
+        <form className="form" onSubmit={this.handleSubmit}>
+          <FormField
+            label="Name"
             type="text"
             placeholder="Enter user name*"
             value={name}
-            onChange={this.handleInputChange}
+            handleChange={this.handleInputChange}
             name="name"
             id={this.idName}
-            required
           />
-          <label className={inputLabel} htmlFor={this.idNumber}>
-            Number
-          </label>
-          <input
-            className={input}
+          <FormField
+            label="Number"
             type="text"
             placeholder="Enter user phone number*"
             value={number}
-            onChange={this.handleInputChange}
+            handleChange={this.handleInputChange}
             name="number"
             id={this.idNumber}
-            required
           />
-          <button
-            type="submit"
-            className={`${formButton} ${theme.config.btnBgColor}`}
-          >
-            Add contact
-          </button>
+          <FormButton type="submit" buttonLabel="Add contact" />
         </form>
       </>
     );
@@ -130,11 +109,6 @@ const mapStateToProps = state => ({
   items: contactsSelectors.getContactsItems(state),
 });
 
-const mapDispatchToProps = {
+export default connect(mapStateToProps, {
   onAddContact: contactsOperations.addContact,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withTheme(ContactEditor));
+})(ContactEditor);

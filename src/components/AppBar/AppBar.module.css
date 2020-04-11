@@ -2,5 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #2a363b;
+  margin-bottom: 30px;
+}
+
+.screenLeft {
+  display: flex;
+  align-items: center;
+  padding: 30px;
 }

@@ -1,18 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { authSelectors } from '../redux/auth';
+import withAuth from '../components/hoc/withAuth';
 
-const PublicRoute = ({
-  component: Component,
-  isLoggedIn,
-  restricted,
-  ...routeProps
-}) => (
+const PublicRoute = ({ component: Component, isLoggedIn, ...routeProps }) => (
   <Route
     {...routeProps}
     render={props =>
-      isLoggedIn && restricted ? (
+      isLoggedIn && routeProps.restricted ? (
         <Redirect to="/contacts" />
       ) : (
         <Component {...props} />
@@ -21,8 +15,4 @@ const PublicRoute = ({
   />
 );
 
-const mapStateToProps = state => ({
-  isLoggedIn: authSelectors.isLoggedIn(state),
-});
-
-export default connect(mapStateToProps)(PublicRoute);
+export default withAuth(PublicRoute);

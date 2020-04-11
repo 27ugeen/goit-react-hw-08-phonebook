@@ -4,10 +4,14 @@ const themeConfig = {
   light: {
     bodyBg: 'bgLight',
     btnBgColor: 'formBtnLight',
+    navLink: 'navLinkLight',
+    navLinkActive: 'navLinkActiveLight',
   },
   dark: {
     bodyBg: 'bgDark',
     btnBgColor: 'formBtnDark',
+    navLink: 'navLinkDark',
+    navLinkActive: 'navLinkActiveDark',
   },
 };
 

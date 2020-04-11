@@ -37,8 +37,11 @@ ul {
   padding: 0;
 }
 
-.phoneBook {
-  height: 100vh;
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .bgLight {
@@ -51,9 +54,27 @@ ul {
   color: #ffffff;
 }
 
+/* ====navLinkThemeConfig====== */
+
+.navLinkLight {
+  color: #3c3c3c;
+}
+
+.navLinkActiveLight {
+  color: #d4396d;
+}
+
+.navLinkDark {
+  color: #ffffff;
+}
+
+.navLinkActiveDark {
+  color: #2196f3;
+}
+
+/* ================================ */
 .themeSelector {
-  padding: 30px;
-  cursor: pointer;
+  margin-right: 30px;
 }
 
 .themeSelector .label {

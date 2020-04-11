@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 import { connect } from 'react-redux';
 import { authOperations } from '../../redux/auth';
-
-const styles = {
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: 4,
-  },
-};
+import withTheme from '../../components/hoc/withTheme';
+import Section from '../../components/Section';
+import FormField from '../../components/Form/FormField';
+import FormButton from '../../components/Form/FormButton';
 
 class LoginView extends Component {
   state = {
@@ -30,38 +24,42 @@ class LoginView extends Component {
     this.setState({ name: '', email: '', password: '' });
   };
 
+  idPassword = shortid.generate();
+  idEmail = shortid.generate();
+
   render() {
     const { email, password } = this.state;
 
     return (
-      <div>
-        <h1>Login Page</h1>
-
-        <form onSubmit={this.handleSubmit} style={styles.form}>
-          <label style={styles.label}>
-            Email
-            <input
+      <>
+        <Section title="Login Page">
+          <form onSubmit={this.handleSubmit} className="form">
+            <FormField
+              label="Email"
               type="email"
-              name="email"
+              placeholder="Enter user email*"
               value={email}
-              onChange={this.handleChange}
+              handleChange={this.handleChange}
+              name="email"
+              id={this.idEmail}
             />
-          </label>
-          <label style={styles.label}>
-            Password
-            <input
+            <FormField
+              label="Password"
               type="password"
-              name="password"
+              placeholder="Enter user password*"
               value={password}
-              onChange={this.handleChange}
+              handleChange={this.handleChange}
+              name="password"
+              id={this.idPassword}
             />
-          </label>
-
-          <button type="submit">Login</button>
-        </form>
-      </div>
+            <FormButton type="submit" buttonLabel="Login" />
+          </form>
+        </Section>
+      </>
     );
   }
 }
 
-export default connect(null, { onLogin: authOperations.logIn })(LoginView);
+export default connect(null, { onLogin: authOperations.logIn })(
+  withTheme(LoginView),
+);

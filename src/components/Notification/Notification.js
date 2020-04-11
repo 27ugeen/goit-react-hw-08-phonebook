@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './Notification.module.css';
 import PropTypes from 'prop-types';
+import styles from './Notification.module.css';
 
 const { notification } = styles;
 

@@ -6,7 +6,7 @@ export default [
     label: 'Home',
     exact: true,
     component: lazy(() => import('./views/HomeView')),
-    private: false,
+    privateRoute: false,
     restricted: false,
   },
   {
@@ -14,7 +14,7 @@ export default [
     label: 'Register',
     exact: true,
     component: lazy(() => import('./views/RegisterView')),
-    private: false,
+    privateRoute: false,
     restricted: true,
   },
   {
@@ -22,7 +22,7 @@ export default [
     label: 'Login',
     exact: true,
     component: lazy(() => import('./views/LoginView')),
-    private: false,
+    privateRoute: false,
     restricted: true,
   },
   {
@@ -30,14 +30,15 @@ export default [
     label: 'Contacts',
     exact: true,
     component: lazy(() => import('./views/ContactsView')),
-    private: true,
+    privateRoute: true,
+    restricted: false,
+  },
+  {
+    path: '/settings',
+    label: 'Settings',
+    exact: true,
+    component: lazy(() => import('./views/SettingsView')),
+    privateRoute: true,
     restricted: false,
   },
 ];
-
-// export default {
-//   home: '/',
-//   register: '/register',
-//   login: '/login',
-//   contacts: '/contacts',
-// };

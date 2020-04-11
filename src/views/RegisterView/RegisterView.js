@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { authOperations } from '../../redux/auth';
-
-const styles = {
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: 4,
-  },
-};
+import shortid from 'shortid';
+import withAuth from '../../components/hoc/withAuth';
+import Section from '../../components/Section';
+import { FormField, FormButton } from '../../components/Form';
 
 class RegisterView extends Component {
   state = {
@@ -31,51 +22,50 @@ class RegisterView extends Component {
     this.setState({ name: '', email: '', password: '' });
   };
 
+  idName = shortid.generate();
+  idPassword = shortid.generate();
+  idEmail = shortid.generate();
+
   render() {
     const { name, email, password } = this.state;
 
     return (
-      <div>
-        <h1>Register page</h1>
-
-        <form onSubmit={this.handleSubmit} style={styles.form}>
-          <label style={styles.label}>
-            Name
-            <input
+      <>
+        <Section title="Register page">
+          <form onSubmit={this.handleSubmit} className="form">
+            <FormField
+              label="Name"
               type="text"
-              name="name"
+              placeholder="Enter user name*"
               value={name}
-              onChange={this.handleChange}
+              handleChange={this.handleChange}
+              name="name"
+              id={this.idName}
             />
-          </label>
-
-          <label style={styles.label}>
-            Email
-            <input
+            <FormField
+              label="Email"
               type="email"
-              name="email"
+              placeholder="Enter user email*"
               value={email}
-              onChange={this.handleChange}
+              handleChange={this.handleChange}
+              name="email"
+              id={this.idEmail}
             />
-          </label>
-
-          <label style={styles.label}>
-            Password
-            <input
+            <FormField
+              label="Password"
               type="password"
-              name="password"
+              placeholder="Enter user email*"
               value={password}
-              onChange={this.handleChange}
+              handleChange={this.handleChange}
+              name="password"
+              id={this.idPassword}
             />
-          </label>
-
-          <button type="submit">Register</button>
-        </form>
-      </div>
+            <FormButton type="submit" buttonLabel="Register" />
+          </form>
+        </Section>
+      </>
     );
   }
 }
 
-export default connect(null, { onRegister: authOperations.register })(
-  RegisterView,
-);
+export default withAuth(RegisterView);

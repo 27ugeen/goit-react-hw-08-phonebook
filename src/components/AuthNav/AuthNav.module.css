@@ -1,3 +1,7 @@
+.navList {
+  margin-right: 30px;
+}
+
 .navList a {
   text-decoration: none;
   text-transform: uppercase;
