@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
+import { CSSTransition } from 'react-transition-group';
 import withAuth from '../../components/hoc/withAuth';
 import Section from '../../components/Section';
+import Notification from '../../components/Notification';
 import { FormField, FormButton } from '../../components/Form';
+import styles from './RegisterView.module.css';
 
 class RegisterView extends Component {
   state = {
@@ -19,7 +22,11 @@ class RegisterView extends Component {
     e.preventDefault();
 
     this.props.onRegister({ ...this.state });
-    this.setState({ name: '', email: '', password: '' });
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+    });
   };
 
   idName = shortid.generate();
@@ -29,9 +36,19 @@ class RegisterView extends Component {
   render() {
     const { name, email, password } = this.state;
 
+    let { authError } = this.props;
+
     return (
       <>
         <Section title="Register page">
+          <CSSTransition
+            in={authError !== null}
+            classNames={styles}
+            timeout={250}
+            unmountOnExit
+          >
+            <Notification message={authError} />
+          </CSSTransition>
           <form onSubmit={this.handleSubmit} className="form">
             <FormField
               label="Name"

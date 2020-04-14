@@ -14,6 +14,7 @@ const withAuth = WrappedComponent => {
       'https://cdn.pixabay.com/photo/2013/07/13/01/20/linux-155549_960_720.png',
     isLoggedIn: authSelectors.isLoggedIn(state),
     isLoading: authSelectors.getLoading(state),
+    authError: authSelectors.getAuthError(state),
   });
 
   return connect(mapStateToProps, {

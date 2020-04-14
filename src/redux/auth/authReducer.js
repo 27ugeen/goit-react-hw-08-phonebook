@@ -36,7 +36,11 @@ const loading = createReducer(false, {
   [authActions.getCurrentUserError]: () => false,
 });
 
-const addError = (_, { payload }) => payload;
+const addError = (_, { payload }) => {
+  console.log(payload.message);
+  // return payload.response.data._message;
+  return payload.message;
+};
 
 const error = createReducer(null, {
   [authActions.registerError]: addError,
@@ -44,6 +48,12 @@ const error = createReducer(null, {
   [authActions.logoutError]: addError,
   [authActions.getCurrentUserError]: addError,
   [authActions.deleteUserAccountError]: addError,
+
+  [authActions.registerRequest]: () => null,
+  [authActions.loginRequest]: () => null,
+  [authActions.logoutRequest]: () => null,
+  [authActions.getCurrentUserRequest]: () => null,
+  [authActions.deleteUserAccountRequest]: () => null,
 });
 
 export default combineReducers({

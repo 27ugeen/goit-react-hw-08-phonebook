@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-export default [
+export default Object.freeze([
   {
     path: '/',
     label: 'Home',
@@ -41,4 +41,5 @@ export default [
     privateRoute: true,
     restricted: false,
   },
-];
+]);
+

@@ -6,4 +6,12 @@ const getUserEmail = state => state.auth.user.email;
 
 const getLoading = state => state.auth.loading;
 
-export default { isLoggedIn, getUserName, getUserEmail, getLoading };
+const getAuthError = state => state.auth.error;
+
+export default {
+  isLoggedIn,
+  getUserName,
+  getUserEmail,
+  getLoading,
+  getAuthError,
+};

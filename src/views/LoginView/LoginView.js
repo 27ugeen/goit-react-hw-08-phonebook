@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
-import { connect } from 'react-redux';
-import { authOperations } from '../../redux/auth';
-import withTheme from '../../components/hoc/withTheme';
+import { CSSTransition } from 'react-transition-group';
+import withAuth from '../../components/hoc/withAuth';
 import Section from '../../components/Section';
-import FormField from '../../components/Form/FormField';
-import FormButton from '../../components/Form/FormButton';
+import Notification from '../../components/Notification';
+import { FormField, FormButton } from '../../components/Form';
+import styles from './LoginView.module.css';
 
 class LoginView extends Component {
   state = {
@@ -30,9 +30,19 @@ class LoginView extends Component {
   render() {
     const { email, password } = this.state;
 
+    let { authError } = this.props;
+
     return (
       <>
         <Section title="Login Page">
+          <CSSTransition
+            in={authError !== null}
+            classNames={styles}
+            timeout={250}
+            unmountOnExit
+          >
+            <Notification message={authError} />
+          </CSSTransition>
           <form onSubmit={this.handleSubmit} className="form">
             <FormField
               label="Email"
@@ -60,6 +70,4 @@ class LoginView extends Component {
   }
 }
 
-export default connect(null, { onLogin: authOperations.logIn })(
-  withTheme(LoginView),
-);
+export default withAuth(LoginView);

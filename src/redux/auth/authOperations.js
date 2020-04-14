@@ -64,7 +64,7 @@ const getCurrentUser = () => (dispatch, getState) => {
   axios
     .get('/users/current')
     .then(({ data }) => dispatch(authActions.getCurrentUserSuccess(data)))
-    .catch(error => authActions.getCurrentUserError(error));
+    .catch(error => dispatch(authActions.getCurrentUserError(error)));
 };
 
 const deleteAccount = () => (dispatch, getState) => {
@@ -82,7 +82,7 @@ const deleteAccount = () => (dispatch, getState) => {
   axios
     .delete('/users/current')
     .then(({ data }) => dispatch(authActions.deleteUserAccountSuccess(data)))
-    .catch(error => authActions.deleteUserAccountError(error));
+    .catch(error => dispatch(authActions.deleteUserAccountError(error)));
 };
 
 export default { register, logIn, logOut, getCurrentUser, deleteAccount };
